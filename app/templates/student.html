@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--Result methodunun adresini al buraya yaz-->
+<form action="{{ url_for('Result') }}" method="post">
+    <p>Öğrenci ismi: <input type="text" name="name"/></p>
+    <p>Fizik notu: <input type="text" name="physics"/></p>
+    <p>Matematik notu: <input type="text" name="mathematics"/></p>
+    <p>Kimya notu: <input type="text" name="chemistry"/></p>
+    <p><input type="submit" value="Gönder"></p>
+</form>
+</body>
+</html>
