@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response, session
 from itsdangerous import Signer, BadSignature
+from .session_interface import MySessionInterface
 
 '''
 render_template: HTML dosyalarını çağırmak için kullanılır.
@@ -13,6 +14,7 @@ app = Flask(__name__) # bu global değişken dosyanın ismini veriyor
 # tarayıcıdaki adresin ne olduğunu flask uygulamamıza söylemeliyiz, bu adres domain kısmından sonrasını içerir /slash sonrası
 # session kullanmak içinde cookielerde oluşturulan verinin şifrelenmesini sağlamalıyız
 app.secret_key = "secret key" # bu key ile session aktif hale gelecek
+app.session_interface =  MySessionInterface()# flask varsayılan kendi interface i (session verilerini tarayıcıya yazan) yerine kendi oluşturduğumuz interfacei kullanacak
 # Çerez (cookie) kontrol edilir.
 # Eğer çerez geçerliyse, çözülerek ekrana yazdırılır.
 # Eğer çerez değiştirilmişse "bad signature" hatası verilir.
@@ -27,6 +29,8 @@ def Definition():
     session['name'] = 'Ahmet'
     session['lastname'] = 'Ahmetoğlu'
     session['username'] = 'ahmet123'
+    # session ı kullanıcının tarayıcısı (default olarak yapılır) yerine istediğimiz yerde kaydedebiliriz
+
     return "<html><body><h1>İlk Flask Denemesi</h1></body></html>" # return olarak html de dönebiliriz
 
 
