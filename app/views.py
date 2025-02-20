@@ -1,37 +1,35 @@
-from flask import Flask, render_template, redirect, url_for, request, make_response
+from flask import Flask, render_template, redirect, url_for, request, make_response, session
 from itsdangerous import Signer, BadSignature
+
 '''
 render_template: HTML dosyalarını çağırmak için kullanılır.
 redirect: Kullanıcıyı başka bir URL'ye yönlendirmek için kullanılır.
 url_for: Flask içinde dinamik URL oluşturmak için kullanılır.
 request: Kullanıcıdan gelen veri almak için kullanılır.
-make_response: HTTP yanıtı oluşturmak için
-Signer & BadSignature (itsdangerous): Verileri güvenli şekilde imzalamak ve doğrulamak için
+make_response: HTTP yanıtı oluşturmak için, response nesnesi oluştururken kullanılır.
+Signer & BadSignature (itsdangerous): Verileri güvenli şekilde imzalamak ve doğrulamak için kullanılır.
 '''
 app = Flask(__name__) # bu global değişken dosyanın ismini veriyor
-
 # tarayıcıdaki adresin ne olduğunu flask uygulamamıza söylemeliyiz, bu adres domain kısmından sonrasını içerir /slash sonrası
+# session kullanmak içinde cookielerde oluşturulan verinin şifrelenmesini sağlamalıyız
+app.secret_key = "secret key" # bu key ile session aktif hale gelecek
 # Çerez (cookie) kontrol edilir.
 # Eğer çerez geçerliyse, çözülerek ekrana yazdırılır.
 # Eğer çerez değiştirilmişse "bad signature" hatası verilir.
 # Yeni bir çerez ("Mehmet") oluşturularak tarayıcıya kaydedilir.
+
+
+# cookielerle aynı işleve sahip olan session, cookilerin aksine veriler tarayıcı yerine sunucuda depolanır.
 @app.route("/") # home page im olacak
 def Definition():
-    # name = request.cookies.get('name')
-    signer = Signer("secret key")
-    #signed_name = signer.sign('Mehmet').decode() # değeri imzala
-    signed_name = request.cookies.get('name')
-    try:
-        name = signer.unsign(signed_name).decode() # imzayı kaldırıp gereken veriyi verir
-        print('name',name)
-    except BadSignature:
-        print("bad signature")
+    if 'name' in session: # session ın içinde name diye bir key var mı
+        print('name', session['name']) # key i oku
+    session['name'] = 'Ahmet'
+    session['lastname'] = 'Ahmetoğlu'
+    session['username'] = 'ahmet123'
+    return "<html><body><h1>İlk Flask Denemesi</h1></body></html>" # return olarak html de dönebiliriz
 
 
-    signed_name = signer.sign('Mehmet').decode()
-    response = make_response("<html><body><h1>İlk Flask Denemesi</h1></body></html>") # make_response cevap mesajı
-    response.set_cookie('name', signed_name) # key value oluştur
-    return response
 
     # return "İlk Flask denemesi" return olarak string dönebilirz
     # return  "<html><body><h1>İlk Flask Denemesi</h1></body></html>" # return olarak html de dönebiliriz
@@ -108,3 +106,5 @@ def Result():
                            physics=physics,
                            mathematics=mathematics,
                            chemistry=chemistry)
+
+# %%
