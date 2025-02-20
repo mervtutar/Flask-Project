@@ -28,28 +28,37 @@ class MySessionInterface(SessionInterface):
         pass
 
     def open_session(self, app, request): # oluşturduğum nesnenin bir örneğini dönmek zorunda (MySession)
-        sessionId = request.cookies.get(app.session_cookie_name)
-        if not sessionId:
+        signedSessionId = request.cookies.get(app.session_cookie_name)
+        if not signedSessionId:
             sessionId = str(uuid.uuid4())
             return self.session_class(sessionId=sessionId)
 
         signer = Signer(app.secret_key, salt=self.salt, key_derivation='hmac')
-        sessionId = signer.unsign(signedSessionId).decode()
+        try:
+            sessionId = signer.unsign(signedSessionId).decode()
+        except BadSignature:
+            sessionId = str(uuid.uuid4())
+            return self.session_class(sessionId=sessionId)
+
 
         # bu kodları redise başka bir veritabanına veya dosyaya yönlendirip yazabiliriz
         initialSessionValueAsJson = self.container.get(sessionId)
-        initialSessionValue = json.loads(initialSessionValueAsJson)
+        try:
+            initialSessionValue = json.loads(initialSessionValueAsJson)
+        except:
+            sessionId = str(uuid.uuid4())
+            return self.session_class(sessionId=sessionId)
 
         return self.session_class(initialSessionValue, sessionId=sessionId)
 
     def save_session(self, app, session, response): # session verisini kaydeder
-        sessionAsJson = json.dump(dict(session)) # json ı sözlükten dönüştür
+        sessionAsJson = json.dumps(dict(session)) # json ı sözlükten dönüştür
 
         self.container[session.sessionId] = sessionAsJson # session ı bir sözlüğe kaydediyoruz
 
         signer = Signer(app.secret_key, salt=self.salt, key_derivation='hmac')
         signedSessionId = signer.sign(want_bytes(session.sessionId))
-        response.set_cookie(app.session_cookie_name, signedSessionId)
+        response.set_cookie(app.session_cookie_name, signedSessionId.decode())
 
 
 
