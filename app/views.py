@@ -22,7 +22,7 @@ app.session_interface =  MySessionInterface()# flask varsayılan kendi interface
 
 
 # cookielerle aynı işleve sahip olan session, cookilerin aksine veriler tarayıcı yerine sunucuda depolanır.
-@app.route("/") # home page im olacak
+'''@app.route("/") # home page im olacak
 def Definition():
     if 'name' in session: # session ın içinde name diye bir key var mı
         print('name', session['name']) # key i oku
@@ -34,8 +34,7 @@ def Definition():
     return "<html><body><h1>İlk Flask Denemesi</h1></body></html>" # return olarak html de dönebiliriz
 
 
-
-    # return "İlk Flask denemesi" return olarak string dönebilirz
+    # return "İlk Flask denemesi" return olarak string dönebiliriz
     # return  "<html><body><h1>İlk Flask Denemesi</h1></body></html>" # return olarak html de dönebiliriz
 
 
@@ -57,12 +56,12 @@ def HelloUser(name):
     #print(name)
     return render_template("hello_user.html", username=name)
 
-'''@app.route("/add/<int:number1>/<int:number2>")
+@app.route("/add/<int:number1>/<int:number2>")
 def Add(number1, number2):
     calculation_result = number1 + number2 # stringleri toplar
     return render_template("add.html", number1 = number1, number2 = number2, result = calculation_result)
 
-'''
+
 
 # değerleri parametre olarak fonksiyona iletmek yerine değerleri fonksiyona gönderip toplamlarını başka bir yöntemle alabiliriz.
 # number1 ve number2 urlde argüman olarak kullanılacak, http://127.0.0.1:5000/add?number1=12&number2=13
@@ -90,18 +89,18 @@ def Student():
 
 @app.route("/result", methods=['POST']) # sonuçlar burada olacağı için post kullandık
 def Result():
-    '''
-    birden fazla değişken varsa ve biz html e göndermek istiyorsak teker teker parametre olarak yazmak yerine sözlük oluşturup key value olarak yazmak daha kullanışlı
+    
+    #birden fazla değişken varsa ve biz html e göndermek istiyorsak teker teker parametre olarak yazmak yerine sözlük oluşturup key value olarak yazmak daha kullanışlı
 
     ContextData = {
-    name: request.form["name"],
-    physics': request.form["physics"],
+    'name': request.form["name"],
+    'physics': request.form["physics"],
     'mathematics': request.form["mathematics"],
     'chemistry': request.form["chemistry"],
     }
     return render_template("student_result.html", **ContextData)
-    Öğrencinin adı ve notları formdan alınır ve student_result.html sayfasına gönderilir.
-    '''
+    #Öğrencinin adı ve notları formdan alınır ve student_result.html sayfasına gönderilir.
+   
     name = request.form["name"]
     physics = request.form["physics"]
     mathematics = request.form["mathematics"]
@@ -110,5 +109,20 @@ def Result():
                            physics=physics,
                            mathematics=mathematics,
                            chemistry=chemistry)
+'''
 
-# %%
+@app.route("/")
+def Index():
+    return render_template("index.html")
+
+@app.route("/")
+def Contact():
+    return render_template("index.html")
+
+@app.route("/")
+def ContactList():
+    return render_template("index.html")
+
+@app.route("/")
+def Login():
+    return render_template("index.html")
