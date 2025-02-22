@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, make_response, session
+from flask import Flask, render_template, redirect, url_for, request, make_response, session, abort
 from itsdangerous import Signer, BadSignature
 from .session_interface import MySessionInterface
 
@@ -139,13 +139,18 @@ def Contact():
 @app.route("/contactlist")
 def ContactList():
     username, login_auth = get_current_username()
-    return render_template("contact_list.html",username=username, login_auth=login_auth)
+    contactList = [
+        ["Berk", "Satış", "Yüksek"],
+        ["Ezgi", "İK", "Orta"],
+        ["Merve", "Üretim", "Düşük"]
+    ]
+    return render_template("contact_list.html",username=username, login_auth=login_auth,contactList=contactList)
 
 @app.route("/login2", methods=["GET", "POST"])
 def Login():
     if request.method == "POST":
         if request.form:
-            if "username" in request.form and "password" == request.form:
+            if "username" in request.form and "password" in request.form:
                 username = request.form["username"]
                 password = request.form["password"]
                 if username == "admin" and password == "admin":
@@ -158,7 +163,7 @@ def Login():
     username, login_auth = get_current_username()
     return render_template("login2.html", username=username, login_auth=login_auth)
 
-app.route("/logout")
+@app.route("/logout")
 def Logout():
     if "username" in session:
         del session["username"]
