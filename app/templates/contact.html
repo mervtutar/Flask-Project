@@ -1,10 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block body_content %}
+<section class="wrapper" id="one">
+    <div class="inner">
+        <!-- Form -->
+        <h3>İletişim Formu</h3>
+
+        <form action="{{ url_for('Contact') }}" method="post">
+            <div class="row uniform">
+                <div class="6u 12u$(xsmall)">
+                    <input id="name" name="name" placeholder="İsim" type="text" value="">
+                    <div data-lastpass-icon-root="true"
+                         style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div>
+                </div>
+                <div class="6u$ 12u$(xsmall)">
+                    <input id="email" name="email" placeholder="Email" type="email" value=""></div>
+                <!-- Break -->
+                <div class="12u$">
+                    <div class="select-wrapper">
+                        <select id="category" name="category">
+                            <option value="">- Bölüm -</option>
+                            <option value="1">Üretim</option>
+                            <option value="1">Nakliye</option>
+                            <option value="1">Yönetim</option>
+                            <option value="1">İK </option>
+                        </select></div>
+                </div>
+                <!-- Break -->
+                <div class="4u 12u$(small)">
+                    <input checked id="priority-low" name="priority" value="0" type="radio"><label for="priority-low">Low
+                    Priority</label>
+                </div>
+                <div class="4u 12u$(small)">
+                    <input id="priority-normal" name="priority" value="1" type="radio"><label for="priority-normal">Normal
+                    Priority</label>
+                </div>
+                <div class="4u$ 12u$(small)">
+                    <input id="priority-high" name="priority" value="2" type="radio"><label for="priority-high">High
+                    Priority</label>
+                </div>
+
+                <!-- Break -->
+                <div class="12u$">
+                    <textarea data-gramm="false" id="message" name="message" placeholder="Enter your message" rows="6"
+                              wt-ignore-input="true"></textarea></div>
+                <!-- Break -->
+                <div class="12u$">
+                    <ul class="actions">
+                        <li><input type="submit" value="Send Message"></li>
+                        <li><input class="alt" type="reset" value="Reset"></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
