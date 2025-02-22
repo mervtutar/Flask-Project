@@ -1,4 +1,34 @@
 {% extends 'base.html' %}
 
 {% block body_content %}
+<section class="wrapper" id="one">
+    <div class="inner">
+        <!-- Table -->
+        <h3>İletişime geçenlerin listesi</h3>
+
+        <h4>Default</h4>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>İsim</th>
+                    <th>Bölüm</th>
+                    <th>Öncelik</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for name, department, priority in contactList %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ department }}</td>
+                    <td>{{ priority }}</td>
+
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</section>
 {% endblock %}
