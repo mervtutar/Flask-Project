@@ -21,6 +21,19 @@ app.session_interface =  MySessionInterface()# flask varsayılan kendi interface
 # Yeni bir çerez ("Mehmet") oluşturularak tarayıcıya kaydedilir.
 
 
+
+
+def get_current_username():
+    username = ""
+    login_auth = False
+    if "username" in session:
+        username = session["username"]
+        login_auth = True
+    return username, login_auth
+
+
+
+
 # cookielerle aynı işleve sahip olan session, cookilerin aksine veriler tarayıcı yerine sunucuda depolanır.
 '''@app.route("/") # home page im olacak
 def Definition():
@@ -113,16 +126,40 @@ def Result():
 
 @app.route("/")
 def Index():
-    return render_template("index.html")
+    username, login_auth = get_current_username()
+    return render_template("index.html", username=username, login_auth=login_auth)
 
-@app.route("/")
+@app.route("/contact", methods=["GET", "POST"])
 def Contact():
-    return render_template("index.html")
+    if request.method == "POST":
+        pass
+    username, login_auth = get_current_username()
+    return render_template("contact.html",username=username, login_auth=login_auth)
 
-@app.route("/")
+@app.route("/contactlist")
 def ContactList():
-    return render_template("index.html")
+    username, login_auth = get_current_username()
+    return render_template("contact_list.html",username=username, login_auth=login_auth)
 
-@app.route("/")
+@app.route("/login2", methods=["GET", "POST"])
 def Login():
-    return render_template("index.html")
+    if request.method == "POST":
+        if request.form:
+            if "username" in request.form and "password" == request.form:
+                username = request.form["username"]
+                password = request.form["password"]
+                if username == "admin" and password == "admin":
+                    session["username"] = username
+                    return redirect(url_for("Index"))
+                else:
+                    return redirect(url_for("Login"))
+
+        abort(400)
+    username, login_auth = get_current_username()
+    return render_template("login2.html", username=username, login_auth=login_auth)
+
+app.route("/logout")
+def Logout():
+    if "username" in session:
+        del session["username"]
+    return redirect(url_for("Index"))
