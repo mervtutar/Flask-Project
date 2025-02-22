@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block body_content %}
+<section class="wrapper" id="one">
+    <div class="inner">
+        <!-- Form -->
+        <h3>Giriş</h3>
+
+        <form action="{{ url_for('Login') }}" method="post">
+            <div class="row uniform">
+                <div class="6u 12u$(xsmall)">
+                    <input id="username" name="username" placeholder="Kullanıcı Adı" type="text" value="">
+                    <div data-lastpass-icon-root="true"
+                         style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div>
+                </div>
+                <div class="6u$ 12u$(xsmall)">
+                    <input id="password" name="password" placeholder="şifre" type="password" value=""></div>
+
+                <div class="12u$">
+                    <ul class="actions">
+                        <li><input type="submit" value="Giriş yap"></li>
+
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
