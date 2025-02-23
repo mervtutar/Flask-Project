@@ -9,3 +9,5 @@ app/controllers/__pycache__/session_interface.cpython-311.pyc
 app/controllers/__pycache__/users.cpython-311.pyc
 app/models/__pycache__/contact_request.cpython-311.pyc
 app/models/__pycache__/__init__.cpython-311.pyc
+app/views/__pycache__/__init__.cpython-311.pyc
+app/views/__pycache__/views.cpython-311.pyc
