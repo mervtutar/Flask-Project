@@ -11,6 +11,7 @@ make_response: HTTP yanıtı oluşturmak için, response nesnesi oluştururken k
 Signer & BadSignature (itsdangerous): Verileri güvenli şekilde imzalamak ve doğrulamak için kullanılır.
 '''
 
+
 app = Flask(__name__, template_folder="../templates", static_folder="../static") # bu global değişken dosyanın ismini veriyor, tek nokta mevcut folderda ara, iki nokta bir üst folderda ara demektir yani bizim için app folderı
 # tarayıcıdaki adresin ne olduğunu flask uygulamamıza söylemeliyiz, bu adres domain kısmından sonrasını içerir /slash sonrası
 # session kullanmak içinde cookielerde oluşturulan verinin şifrelenmesini sağlamalıyız
