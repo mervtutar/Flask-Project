@@ -16,12 +16,12 @@
 <header id="header">
     <nav class="left"><a href="#menu"><span>Menü</span></a>
     </nav>
-    <a class="logo" href="{{url_for('Index')}}">my flask project</a>
+    <a class="logo" href="{{url_for('home.Index')}}">my flask project</a>
     {% if login_auth == False %}
-    <nav class="right"><a class="button alt" href="{{url_for('Login')}}">Giriş</a>
+    <nav class="right"><a class="button alt" href="{{url_for('users.Login')}}">Giriş</a>
     </nav>
     {% else %}
-    <nav class="right"><a class="button alt" href="{{url_for('Logout')}}">{{ username }} - Çıkış</a>
+    <nav class="right"><a class="button alt" href="{{url_for('users.Logout')}}">{{ username }} - Çıkış</a>
     </nav>
     {% endif %}
 </header>
@@ -30,17 +30,17 @@
 
 <nav id="menu">
     <ul class="links">
-        <li><a href="{{url_for('Index')}}">Ana Sayfa</a></li>
-        <li><a href="{{url_for('ContactList')}}">İletişime Geçenler</a></li>
-        <li><a href="{{url_for('Contact')}}">İletişim</a></li>
+        <li><a href="{{url_for('home.Index')}}">Ana Sayfa</a></li>
+        <li><a href="{{url_for('contacts.ContactList')}}">İletişime Geçenler</a></li>
+        <li><a href="{{url_for('contacts.Contact')}}">İletişim</a></li>
     </ul>
     {% if login_auth == False %}
     <ul class="actions vertical">
-        <li><a class="button fit" href="{{url_for('Login')}}">Giriş</a></li>
+        <li><a class="button fit" href="{{url_for('users.Login')}}">Giriş</a></li>
     </ul>
     {% else %}
     <ul class="actions vertical">
-        <li><a class="button fit" href="{{url_for('Logout')}}">{{ username }} - Çıkış</a></li>
+        <li><a class="button fit" href="{{url_for('users.Logout')}}">{{ username }} - Çıkış</a></li>
     </ul>
     {% endif %}
 </nav>
