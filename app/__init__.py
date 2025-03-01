@@ -1,1 +1,1 @@
-from .views import app # app views içindeki flask nesnesi
+from .my_app import create_app # app views içindeki flask nesnesi
