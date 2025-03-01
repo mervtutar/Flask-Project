@@ -11,3 +11,7 @@ app/models/__pycache__/contact_request.cpython-311.pyc
 app/models/__pycache__/__init__.cpython-311.pyc
 app/views/__pycache__/__init__.cpython-311.pyc
 app/views/__pycache__/views.cpython-311.pyc
+app/__pycache__/my_app.cpython-311.pyc
+app/views/__pycache__/contacts.cpython-311.pyc
+app/views/__pycache__/home.cpython-311.pyc
+app/views/__pycache__/users.cpython-311.pyc
